@@ -219,19 +219,21 @@ class Matriz{
 
 		linhaComMaisZeros = encontreLinhaComMaisZeros();
 		colunaComMaisZeros = encontreColunaComMaisZeros();
-		
+
+		System.out.println("linha: " + linhaComMaisZeros);
+		System.out.println("coluna: " + colunaComMaisZeros);	
 		if (linhaComMaisZeros != -1 || colunaComMaisZeros != -1 ){
 
-		//quantidade de zeros da coluna com mais zeros
+		//quantidade de zeros da linha com mais zeros
 		for (int j = 0; j < this.getTamanhoColuna(); j++) {
 				if (this.getValor(linhaComMaisZeros, j) == 0) {
-					quantidadeZerosColuna++;
+					quantidadeZerosLinha++;
 				}
 			}
 		//quanridade de zeros da linha com mais zeros
 		for (int i = 0; i < this.getTamanhoLinha(); i++) {
 				if (this.getValor(i, colunaComMaisZeros) == 0) {
-					quantidadeZerosLinha++;
+					quantidadeZerosColuna++;
 				}
 			}
 
