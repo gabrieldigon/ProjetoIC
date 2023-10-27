@@ -5,7 +5,7 @@ class Main{
         int det;
         long inicio, fim, resultado;
 
-        mat1 = new Matriz(4, 4);
+        mat1 = new Matriz(11, 11);
         mat1.inicializaRandomico();
 
         mat1.imprime();
@@ -16,15 +16,16 @@ class Main{
         System.out.println("Determinante:" + det);
         System.out.println("Tempo: " + resultado + " ms");
 
-		mat1.encontraLinhaOuColunaParaCofator();
+		// int a = mat1.encontraLinhaOuColunaParaCofator();
+		// System.out.println("olha: " + a);
 
-		// mat1.imprime();
-        // inicio = System.currentTimeMillis();
-        // det = mat1.determinanteOtimizacaoZeros();
-        // fim = System.currentTimeMillis();
-        // resultado = fim - inicio;
-        // System.out.println("Determinante:" + det);
-        // System.out.println("Tempo: " + resultado + " ms");
+		mat1.imprime();
+        inicio = System.currentTimeMillis();
+        det = mat1.determinanteOtimizadoZero();
+        fim = System.currentTimeMillis();
+        resultado = fim - inicio;
+        System.out.println("Determinante:" + det);
+        System.out.println("Tempo: " + resultado + " ms");
 		
 		
 		

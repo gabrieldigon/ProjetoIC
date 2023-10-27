@@ -212,7 +212,7 @@ class Matriz{
 		return linhaComMaisZeros;
 	}
 
-	public void encontraLinhaOuColunaParaCofator() {
+	public int encontraLinhaOuColunaParaCofator() {
 		int linhaComMaisZeros,colunaComMaisZeros;
 		int quantidadeZerosColuna = 0;
 		int quantidadeZerosLinha = 0;
@@ -220,8 +220,8 @@ class Matriz{
 		linhaComMaisZeros = encontreLinhaComMaisZeros();
 		colunaComMaisZeros = encontreColunaComMaisZeros();
 
-		System.out.println("linha: " + linhaComMaisZeros);
-		System.out.println("coluna: " + colunaComMaisZeros);	
+		// System.out.println("linha: " + linhaComMaisZeros);
+		// System.out.println("coluna: " + colunaComMaisZeros);	
 		if (linhaComMaisZeros != -1 || colunaComMaisZeros != -1 ){
 
 		//quantidade de zeros da linha com mais zeros
@@ -239,19 +239,86 @@ class Matriz{
 
 		}
 		else{
-			System.out.println("não existe zero na matriz");
+			// System.out.println("não existe zero na matriz");
 			//codigo para nenhum zero na matriz o que significa que não da pra determinar o determinante com esse metodo de otimizaçãO
 			
+			return 0;
 		}
 		
 		if (quantidadeZerosLinha > quantidadeZerosColuna) {
-			System.out.println("a quantidade de zeros da linha: " + linhaComMaisZeros + " é igual a: " + quantidadeZerosLinha + " e ela é a com mais zeros");
+			// System.out.println("a quantidade de zeros da linha: " + linhaComMaisZeros + " é igual a: " + quantidadeZerosLinha + " e ela é a com mais zeros");
+			return -linhaComMaisZeros;
 		}
 		else{
-			System.out.println("a quantidade de zeros da coluna: " + colunaComMaisZeros + " é igual a: " + quantidadeZerosColuna + "e ela é a com mais zeros");
+			// System.out.println("a quantidade de zeros da coluna: " + colunaComMaisZeros + " é igual a: " + quantidadeZerosColuna + "e ela é a com mais zeros");
+			return colunaComMaisZeros;
 		}
 		
 
+	}
+
+	public int determinanteOtimizadoZero(){
+		int ordem,det;
+		
+		ordem = this.retorneOrdem();
+		det = 0;
+
+		if(ordem > 0){
+			switch (ordem) {
+			    case 1:  det = this.detOrdem1(this);
+				     break;
+			    case 2:  det = this.detOrdem2(this);;
+				     break;
+			    default: det = this.detOrdemNOtimizadoZero(this);;
+				     break;
+			}
+			
+		}
+		else{
+			System.out.println("Matriz nao eh quadrada!! retornando 0");
+		}
+
+		return det;
+	}
+
+	
+	private int detOrdemNOtimizadoZero(Matriz mat){
+		int sinal,cofator,detTemp,resposta,contC,numL,numC;
+		Matriz matmenor;
+		numL = this.getTamanhoLinha();
+		numC = this.getTamanhoColuna();
+		
+		int linhaOuColunaParaCofator = mat.encontraLinhaOuColunaParaCofator();
+
+		
+		resposta = 0;
+		if (linhaOuColunaParaCofator < 0){
+			linhaOuColunaParaCofator = linhaOuColunaParaCofator*-1;
+			for(contC = 0; contC < mat.getTamanhoLinha(); contC++){
+			//alterar essa parte para achar a linha ou coluna com mais zeros
+			cofator = mat.getValor(contC,linhaOuColunaParaCofator);
+			sinal = this.calculaSinal(contC,linhaOuColunaParaCofator);
+			matmenor = new Matriz(numL-1,numC-1);
+			//talvez ineverter aq
+			this.copiaMatrizMaiorParaMenor(mat,matmenor,contC,linhaOuColunaParaCofator);
+			detTemp = matmenor.determinanteOtimizadoZero();
+			resposta = resposta + (cofator * sinal * detTemp);
+		}
+		return (resposta);
+		} 
+		else{
+			for(contC = 0; contC < mat.getTamanhoColuna(); contC++){
+			//alterar essa parte para achar a linha ou coluna com mais zeros
+			cofator = mat.getValor(linhaOuColunaParaCofator,contC);
+			sinal = this.calculaSinal(linhaOuColunaParaCofator,contC);
+			matmenor = new Matriz(numL-1,numC-1);
+			this.copiaMatrizMaiorParaMenor(mat,matmenor,linhaOuColunaParaCofator,contC);
+			detTemp = matmenor.determinanteOtimizadoZero();
+			resposta = resposta + (cofator * sinal * detTemp);
+		}
+		return (resposta);
+		}
+		
 	}
 	
 	
