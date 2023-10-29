@@ -42,6 +42,16 @@ class Matriz{
 		tamColuna = novoValor;
 	}
 
+	public void configuraMatrizDasOdens(){
+		int ordem = 3;
+		for(int conti = 0; conti < this.getTamanhoLinha(); conti++){
+			for(int contj = 0; contj < this.getTamanhoColuna(); contj++){
+				this.setValor(conti,contj,ordem);
+				ordem = ordem + 2;
+			}
+		}
+	}
+
 	public void imprime(){
 		int conti,contj;	
 		for(conti = 0; conti < this.getTamanhoLinha(); conti++){
