@@ -360,68 +360,98 @@ class Matriz{
 	
 		return false;
 	}
-	public boolean encontraLInhaOuColunaProporcional() {
-		// Verifica se há uma linha proporcional a outra linha
-		for (int i = 0; i < this.getTamanhoLinha(); i++) {
-			for (int j = i + 1; j < this.getTamanhoLinha(); j++) {
-				boolean linhaProporcional = true;
-				int fator = -1;
+	public boolean encontreLinhaProporcional() {
+		int numLinhas = this.getTamanhoLinha();
+		int numColunas = this.getTamanhoColuna();
 	
-				for (int k = 0; k < this.getTamanhoColuna(); k++) {
-					if (this.getValor(i, k) == 0) {
-						if (this.getValor(j, k) != 0) {
-							linhaProporcional = false;
-							break;
-						}
-					} else {
-						if (fator == -1) {
-							fator = this.getValor(j, k) / this.getValor(i, k);
-						} else {
-							if (this.getValor(j, k) / this.getValor(i, k) != fator) {
-								linhaProporcional = false;
-								break;
-							}
-						}
+		// Percorra todas as linhas da matriz
+		for (int linha1 = 0; linha1 < numLinhas; linha1++) {
+			for (int linha2 = linha1 + 1; linha2 < numLinhas; linha2++) {
+				boolean saoProporcionais = true;
+				int fator = -1; // Inicialize o fator com um valor que indica que ainda não foi determinado
+	
+				// Percorra todas as colunas para verificar a proporção
+				for (int coluna = 0; coluna < numColunas; coluna++) {
+					int valor1 = this.getValor(linha1, coluna);
+					int valor2 = this.getValor(linha2, coluna);
+	
+					// Se ambos os valores forem zero, não faz sentido verificar a proporção
+					if (valor1 == 0 && valor2 == 0) {
+						continue;
+					}
+	
+					// Se um dos valores for zero e o outro não, eles não são proporcionais
+					if ((valor1 == 0 && valor2 != 0) || (valor1 != 0 && valor2 == 0)) {
+						saoProporcionais = false;
+						break;
+					}
+	
+					// Se o fator ainda não foi determinado, determine-o
+					if (fator == -1) {
+						fator = valor2 / valor1;
+					}
+	
+					// Se o valor2 não for proporcional ao valor1 de acordo com o fator, eles não são proporcionais
+					if (valor2 != fator * valor1) {
+						saoProporcionais = false;
+						break;
 					}
 				}
 	
-				if (linhaProporcional) {
-					return true;
+				if (saoProporcionais) {
+					return true; // Encontrou duas linhas proporcionais
 				}
 			}
 		}
 	
-		// Verifica se há uma coluna proporcional a outra coluna
-		for (int i = 0; i < this.getTamanhoColuna(); i++) {
-			for (int j = i + 1; j < this.getTamanhoColuna(); j++) {
-				boolean colunaProporcional = true;
-				int fator = -1;
+		return false; // Não encontrou duas linhas proporcionais
+	}
 	
-				for (int k = 0; k < this.getTamanhoLinha(); k++) {
-					if (this.getValor(k, i) == 0) {
-						if (this.getValor(k, j) != 0) {
-							colunaProporcional = false;
-							break;
-						}
-					} else {
-						if (fator == -1) {
-							fator = this.getValor(k, j) / this.getValor(k, i);
-						} else {
-							if (this.getValor(k, j) / this.getValor(k, i) != fator) {
-								colunaProporcional = false;
-								break;
-							}
-						}
+	public boolean encontreColunaProporcional() {
+		int numLinhas = this.getTamanhoLinha();
+		int numColunas = this.getTamanhoColuna();
+	
+		// Percorra todas as colunas da matriz
+		for (int coluna1 = 0; coluna1 < numColunas; coluna1++) {
+			for (int coluna2 = coluna1 + 1; coluna2 < numColunas; coluna2++) {
+				boolean saoProporcionais = true;
+				int fator = -1; // Inicialize o fator com um valor que indica que ainda não foi determinado
+	
+				// Percorra todas as linhas para verificar a proporção
+				for (int linha = 0; linha < numLinhas; linha++) {
+					int valor1 = this.getValor(linha, coluna1);
+					int valor2 = this.getValor(linha, coluna2);
+	
+					// Se ambos os valores forem zero, não faz sentido verificar a proporção
+					if (valor1 == 0 && valor2 == 0) {
+						continue;
+					}
+	
+					// Se um dos valores for zero e o outro não, eles não são proporcionais
+					if ((valor1 == 0 && valor2 != 0) || (valor1 != 0 && valor2 == 0)) {
+						saoProporcionais = false;
+						break;
+					}
+	
+					// Se o fator ainda não foi determinado, determine-o
+					if (fator == -1) {
+						fator = valor2 / valor1;
+					}
+	
+					// Se o valor2 não for proporcional ao valor1 de acordo com o fator, eles não são proporcionais
+					if (valor2 != fator * valor1) {
+						saoProporcionais = false;
+						break;
 					}
 				}
 	
-				if (colunaProporcional) {
-					return true;
+				if (saoProporcionais) {
+					return true; // Encontrou duas colunas proporcionais
 				}
 			}
 		}
 	
-		return false;
+		return false; // Não encontrou duas colunas proporcionais
 	}
 	
 	
@@ -432,9 +462,10 @@ public int determinanteOtimizadoProporcional(){
 		ordem = this.retorneOrdem();
 		det = 0;
 
-		if(this.encontraLInhaOuColunaProporcional() == false || this.encontraLinhaOuColunaIgual() == true){
+		if(this.encontraLinhaOuColunaIgual() == true || this.encontreLinhaProporcional() == true || this.encontreColunaProporcional() == true ){
 			det = 0;
-			System.out.println("encontaLinhaOuColunaProporciona:" + encontraLInhaOuColunaProporcional());
+			System.out.println("encontaColunaProporcional:" + encontreColunaProporcional());
+			System.out.println("encontaLinhaProporcional:" + encontreLinhaProporcional());
 			System.out.println("encontaLinhaOuColunaIgual:" + encontraLinhaOuColunaIgual());
 			return det;
 		}
