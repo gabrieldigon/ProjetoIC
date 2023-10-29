@@ -5,34 +5,40 @@ class Main{
         int det;
         long inicio, fim, resultado;
 
-        mat1 = new Matriz(4, 4);
+        mat1 = new Matriz(11, 11);
         mat1.inicializaRandomico();
 		mat1.criarMatrizComLinhaOuColunaProporcionalAleatoria();
-		mat1.imprime();
-		det = mat1.determinante();
-		boolean resposta =  mat1.encontraLInhaOuColunaProporcional();
-		System.out.println("o Determinate é: " + det);
-		System.out.println("a resposta é: " + resposta);
-
-        // mat1.imprime();
-        // inicio = System.currentTimeMillis();
-        // det = mat1.determinante();
-        // fim = System.currentTimeMillis();
-        // resultado = fim - inicio;
-        // System.out.println("Determinante:" + det);
-        // System.out.println("Tempo: " + resultado + " ms");
-
-		// // int a = mat1.encontraLinhaOuColunaParaCofator();
-		// // System.out.println("olha: " + a);
-
-		// mat1.imprime();
-        // inicio = System.currentTimeMillis();
-        // det = mat1.determinanteOtimizadoZero();
-        // fim = System.currentTimeMillis();
-        // resultado = fim - inicio;
-        // System.out.println("Determinante:" + det);
-        // System.out.println("Tempo: " + resultado + " ms");
 		
+
+	System.out.println("----------Sem otimização---------------");
+
+        mat1.imprime();
+        inicio = System.currentTimeMillis();
+        det = mat1.determinante();
+        fim = System.currentTimeMillis();
+        resultado = fim - inicio;
+        System.out.println("Determinante:" + det);
+        System.out.println("Tempo: " + resultado + " ms");
+
+	System.out.println("----------Otimização Dos Zeros---------------");
+
+		mat1.imprime();
+        inicio = System.currentTimeMillis();
+        det = mat1.determinanteOtimizadoZero();
+        fim = System.currentTimeMillis();
+        resultado = fim - inicio;
+        System.out.println("Determinante:" + det);
+        System.out.println("Tempo: " + resultado + " ms");
+
+	System.out.println("----------Otimização Das proporções---------------");
+
+		mat1.imprime();
+        inicio = System.currentTimeMillis();
+        det = mat1.determinanteOtimizadoZero();
+        fim = System.currentTimeMillis();
+        resultado = fim - inicio;
+        System.out.println("Determinante:" + det);
+        System.out.println("Tempo: " + resultado + " ms");
 		
 		
 		

@@ -412,7 +412,59 @@ class Matriz{
 	}
 	
 	
+public int determinanteOtimizadoProporcional(){
+		int ordem,det;
+		
+		ordem = this.retorneOrdem();
+		det = 0;
 
+		if(encontraLInhaOuColunaProporcional() == true || encontraLinhaOuColunaIgual() == true){
+			det = 0;
+			return det;
+		}
+
+		else{
+			if(ordem > 0){
+			switch (ordem) {
+			    case 1:  det = this.detOrdem1(this);
+				     break;
+			    case 2:  det = this.detOrdem2(this);;
+				     break;
+			    default: det = this.detOrdemNOtimizadoProporcional(this);;
+				     break;
+			}
+			
+		}
+		else{
+			System.out.println("Matriz nao eh quadrada!! retornando 0");
+		}
+
+		return det;
+		}
+
+		
+	}
+	
+
+
+	private int detOrdemNOtimizadoProporcional(Matriz mat){
+		int sinal,cofator,detTemp,resposta,contC,numL,numC;
+		Matriz matmenor;
+		numL = this.getTamanhoLinha();
+		numC = this.getTamanhoColuna();
+		
+		resposta = 0;
+		for(contC = 0; contC < mat.getTamanhoColuna(); contC++){
+			//alterar essa parte para achar a linha ou coluna com mais zeros
+			cofator = mat.getValor(0,contC);
+			sinal = this.calculaSinal(0,contC);
+			matmenor = new Matriz(numL-1,numC-1);
+			this.copiaMatrizMaiorParaMenor(mat,matmenor,0,contC);
+			detTemp = matmenor.determinanteOtimizadoProporcional();
+			resposta = resposta + (cofator * sinal * detTemp);
+		}
+		return (resposta);
+	}
 
 
 
