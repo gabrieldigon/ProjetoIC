@@ -5,9 +5,8 @@ class Main{
         int det;
         long inicio, fim, resultado;
 
-        mat1 = new Matriz(11, 11);
+        mat1 = new Matriz(7, 7);
         mat1.inicializaRandomico();
-		mat1.criarMatrizComLinhaOuColunaProporcionalAleatoria();
 		
 
 	System.out.println("----------Sem otimização---------------");
@@ -34,7 +33,7 @@ class Main{
 
 		mat1.imprime();
         inicio = System.currentTimeMillis();
-        det = mat1.determinanteOtimizadoZero();
+        det = mat1.determinanteOtimizadoProporcional();
         fim = System.currentTimeMillis();
         resultado = fim - inicio;
         System.out.println("Determinante:" + det);

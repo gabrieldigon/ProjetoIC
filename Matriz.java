@@ -361,48 +361,61 @@ class Matriz{
 		return false;
 	}
 	public boolean encontraLInhaOuColunaProporcional() {
-		int numL = this.getTamanhoLinha();
-		int numC = this.getTamanhoColuna();
+		// Verifica se há uma linha proporcional a outra linha
+		for (int i = 0; i < this.getTamanhoLinha(); i++) {
+			for (int j = i + 1; j < this.getTamanhoLinha(); j++) {
+				boolean linhaProporcional = true;
+				int fator = -1;
 	
-		// Verifica linhas proporcionais
-		for (int i = 0; i < numL - 1; i++) {
-			for (int j = i + 1; j < numL; j++) {
-				boolean isProporcional = true;
-				for (int k = 0; k < numC; k++) {
-					if (this.getValor(i, k) != 0 && this.getValor(j, k) != 0) {
-						if (this.getValor(i, k) % this.getValor(j, k) != 0 &&
-							this.getValor(j, k) % this.getValor(i, k) != 0) {
-							isProporcional = false;
+				for (int k = 0; k < this.getTamanhoColuna(); k++) {
+					if (this.getValor(i, k) == 0) {
+						if (this.getValor(j, k) != 0) {
+							linhaProporcional = false;
 							break;
 						}
-					} else if (this.getValor(i, k) != 0 || this.getValor(j, k) != 0) {
-						isProporcional = false;
-						break;
+					} else {
+						if (fator == -1) {
+							fator = this.getValor(j, k) / this.getValor(i, k);
+						} else {
+							if (this.getValor(j, k) / this.getValor(i, k) != fator) {
+								linhaProporcional = false;
+								break;
+							}
+						}
 					}
 				}
-				if (isProporcional) {
+	
+				if (linhaProporcional) {
 					return true;
 				}
 			}
 		}
 	
-		// Verifica colunas proporcionais
-		for (int i = 0; i < numC - 1; i++) {
-			for (int j = i + 1; j < numC; j++) {
-				boolean isProporcional = true;
-				for (int k = 0; k < numL; k++) {
-					if (this.getValor(k, i) != 0 && this.getValor(k, j) != 0) {
-						if (this.getValor(k, i) % this.getValor(k, j) != 0 &&
-							this.getValor(k, j) % this.getValor(k, i) != 0) {
-							isProporcional = false;
+		// Verifica se há uma coluna proporcional a outra coluna
+		for (int i = 0; i < this.getTamanhoColuna(); i++) {
+			for (int j = i + 1; j < this.getTamanhoColuna(); j++) {
+				boolean colunaProporcional = true;
+				int fator = -1;
+	
+				for (int k = 0; k < this.getTamanhoLinha(); k++) {
+					if (this.getValor(k, i) == 0) {
+						if (this.getValor(k, j) != 0) {
+							colunaProporcional = false;
 							break;
 						}
-					} else if (this.getValor(k, i) != 0 || this.getValor(k, j) != 0) {
-						isProporcional = false;
-						break;
+					} else {
+						if (fator == -1) {
+							fator = this.getValor(k, j) / this.getValor(k, i);
+						} else {
+							if (this.getValor(k, j) / this.getValor(k, i) != fator) {
+								colunaProporcional = false;
+								break;
+							}
+						}
 					}
 				}
-				if (isProporcional) {
+	
+				if (colunaProporcional) {
 					return true;
 				}
 			}
@@ -412,14 +425,17 @@ class Matriz{
 	}
 	
 	
+	
 public int determinanteOtimizadoProporcional(){
 		int ordem,det;
 		
 		ordem = this.retorneOrdem();
 		det = 0;
 
-		if(encontraLInhaOuColunaProporcional() == true || encontraLinhaOuColunaIgual() == true){
+		if(this.encontraLInhaOuColunaProporcional() == false || this.encontraLinhaOuColunaIgual() == true){
 			det = 0;
+			System.out.println("encontaLinhaOuColunaProporciona:" + encontraLInhaOuColunaProporcional());
+			System.out.println("encontaLinhaOuColunaIgual:" + encontraLinhaOuColunaIgual());
 			return det;
 		}
 
@@ -430,7 +446,7 @@ public int determinanteOtimizadoProporcional(){
 				     break;
 			    case 2:  det = this.detOrdem2(this);;
 				     break;
-			    default: det = this.detOrdemNOtimizadoProporcional(this);;
+			    default: det = this.detOrdemN(this);;
 				     break;
 			}
 			
@@ -447,24 +463,7 @@ public int determinanteOtimizadoProporcional(){
 	
 
 
-	private int detOrdemNOtimizadoProporcional(Matriz mat){
-		int sinal,cofator,detTemp,resposta,contC,numL,numC;
-		Matriz matmenor;
-		numL = this.getTamanhoLinha();
-		numC = this.getTamanhoColuna();
-		
-		resposta = 0;
-		for(contC = 0; contC < mat.getTamanhoColuna(); contC++){
-			//alterar essa parte para achar a linha ou coluna com mais zeros
-			cofator = mat.getValor(0,contC);
-			sinal = this.calculaSinal(0,contC);
-			matmenor = new Matriz(numL-1,numC-1);
-			this.copiaMatrizMaiorParaMenor(mat,matmenor,0,contC);
-			detTemp = matmenor.determinanteOtimizadoProporcional();
-			resposta = resposta + (cofator * sinal * detTemp);
-		}
-		return (resposta);
-	}
+	
 
 
 
