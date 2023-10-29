@@ -5,9 +5,8 @@ class Main{
         int det;
         long inicio, fim, resultado;
 
-        mat1 = new Matriz(4, 4);
+        mat1 = new Matriz(11, 11);
         mat1.inicializaRandomico();
-		mat1.criarMatrizComLinhaOuColunaProporcionalAleatoria();
 		
 
 	System.out.println("----------Sem otimização---------------");
