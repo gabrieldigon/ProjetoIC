@@ -333,7 +333,6 @@ class Matriz{
 				for (int k = 0; k < numC; k++) {
 					if (this.getValor(i, k) != this.getValor(j, k)) {
 						linhaIgual = false;
-						break;
 					}
 				}
 				if (linhaIgual) {
@@ -349,7 +348,6 @@ class Matriz{
 				for (int k = 0; k < numL; k++) {
 					if (this.getValor(k, i) != this.getValor(k, j)) {
 						colunaIgual = false;
-						break;
 					}
 				}
 				if (colunaIgual) {
@@ -383,18 +381,18 @@ class Matriz{
 					// Se um dos valores for zero e o outro não, eles não são proporcionais
 					if ((valor1 == 0 && valor2 != 0) || (valor1 != 0 && valor2 == 0)) {
 						saoProporcionais = false;
-						break;
+						// break;
 					}
 	
 					// Se o fator ainda não foi determinado, determine-o
-					if (fator == -1) {
+					if (fator == -1 && saoProporcionais == true) {
 						fator = valor2 / valor1;
 					}
 	
 					// Se o valor2 não for proporcional ao valor1 de acordo com o fator, eles não são proporcionais
 					if (valor2 != fator * valor1) {
 						saoProporcionais = false;
-						break;
+						
 					}
 				}
 	
@@ -430,18 +428,18 @@ class Matriz{
 					// Se um dos valores for zero e o outro não, eles não são proporcionais
 					if ((valor1 == 0 && valor2 != 0) || (valor1 != 0 && valor2 == 0)) {
 						saoProporcionais = false;
-						break;
+						// break;
 					}
 	
 					// Se o fator ainda não foi determinado, determine-o
-					if (fator == -1) {
+					if (fator == -1 && saoProporcionais == true) {
 						fator = valor2 / valor1;
 					}
 	
 					// Se o valor2 não for proporcional ao valor1 de acordo com o fator, eles não são proporcionais
 					if (valor2 != fator * valor1) {
 						saoProporcionais = false;
-						break;
+						
 					}
 				}
 	
