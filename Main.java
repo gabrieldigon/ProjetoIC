@@ -41,9 +41,8 @@ class Main{
 		
 		
 	Matriz matOrdens;
-	matOrdens = new Matriz(1, 6);
+	matOrdens = new Matriz(1, 7);
 	matOrdens.configuraMatrizDasOdens();
-	matOrdens.imprime();
 		
 		int ordemDaVez;
 		for(int j = 0; j < matOrdens.getTamanhoColuna() - 1; j++){
