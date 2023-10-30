@@ -13,7 +13,7 @@ class Main{
 
 	if (resposta == 1) {
 	Matriz matOrdens;
-	matOrdens = new Matriz(1, 6);
+	matOrdens = new Matriz(1, 7);
 	matOrdens.configuraMatrizDasOdens();
 		System.out.println("------------------DETERMINANTES CALCULADOS EM MILISEGUNDOS----------------------\n\n" );
 		int ordemDaVez;
@@ -62,7 +62,7 @@ class Main{
 	else if (resposta == 2) {
 		System.out.println("------------------DETERMINANTES CALCULADOS EM NANOSEGUNDOS----------------------\n\n" );
 	Matriz matOrdens;
-	matOrdens = new Matriz(1, 6);
+	matOrdens = new Matriz(1, 7);
 	matOrdens.configuraMatrizDasOdens();
 		
 		int ordemDaVez;
