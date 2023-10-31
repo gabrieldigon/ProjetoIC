@@ -366,7 +366,7 @@ class Matriz{
 					int valor2 = this.getValor(linha2, coluna);
 	
 					if (valor1 == 0 && valor2 == 0) {
-						continue;
+						saoProporcionais = false;
 					}
 	
 					if ((valor1 == 0 && valor2 != 0) || (valor1 != 0 && valor2 == 0)) {
@@ -407,7 +407,7 @@ class Matriz{
 					int valor2 = this.getValor(linha, coluna2);
 	
 					if (valor1 == 0 && valor2 == 0) {
-						continue;
+						saoProporcionais = false;
 					}
 	
 					if ((valor1 == 0 && valor2 != 0) || (valor1 != 0 && valor2 == 0)) {
